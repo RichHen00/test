@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0076b9">
+<title>i4</title>
+<style>
+  html {
+    color-scheme: light;
+    background-color: #0076b9;
+    overflow: hidden;
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  body {
+    overflow: hidden;
+    position: relative;
+    min-height: 100vh;
+    min-height: 100lvvh;
+    margin: 0;
+    background-color: #0076b9;
+    background-image: url("img/001.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    min-height: 100vh;
+    min-height: 100lvvh;
+    background-color: #0076b9;
+    background-image: url("img/001.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .view {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+    padding: 3rem 1.75rem max(3rem, env(safe-area-inset-bottom));
+    color: #fff;
+    font-family: "American Typewriter", "Courier New", Courier, monospace;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  }
+  .view::-webkit-scrollbar {
+    display: none;
+  }
+  .view-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .view h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+  }
+  .view .year {
+    font-size: 1.125rem;
+    margin-top: 0.5rem;
+    margin-bottom: 2.5rem;
+    color: #e8f4fb;
+  }
+  .view p {
+    margin-top: 0;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+  }
+  .view p:last-child {
+    margin-bottom: 0;
+  }
+  @media (min-width: 768px) {
+    .view h1 { font-size: 3.5rem; }
+    .view p { font-size: 1.1875rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <main class="view">
+    <div class="view-inner">
+      <h1>Hermes Featherweight</h1>
+      <p class="year">1946</p>
+      <p>The Featherweight is the work of Giuseppe Prezioso, who was born in 1897 in Taverna, a small village in the Abruzzi. The Featherweight is the work of Giuseppe Prezioso, who was born in 1897 in Taverna, a small village in the Abruzzi.</p>
+      <p>He studied mechanical engineering in Milan and worked at Marelli, a large electrical appliance factory. The Featherweight is the work of Giuseppe Prezioso, who was born in 1897 in Taverna, a small village in the Abruzzi.</p>
+      <p>The Featherweight is the work of Giuseppe Prezioso, who was born in 1897 in Taverna, a small village in the Abruzzi. The Featherweight is the work of Giuseppe Prezioso, who was born in 1897 in Taverna, a small village in the Dingo.</p>
+      
+      
+    </div>
+  </main>
+</body>
+</html>
