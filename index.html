@@ -11,9 +11,17 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html {
-    background: #000 url('img/001.jpg') center/cover no-repeat fixed;
+    --photo: url('img/001.jpg');
+    background-color: #000;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), var(--photo);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
   body {
+    min-height: 100vh;
+    min-height: 100svh;
     background: transparent;
     font-family: "DM Sans", Arial, sans-serif;
     font-weight: 400;
@@ -22,39 +30,15 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
-  .bg {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: #000;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-  }
-  .bg::after {
-    content: "";
-    position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
-    background: #000;
-    opacity: 0.15;
-  }
   .view {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow: visible;
     display: flex;
     flex-direction: column;
     padding: clamp(54px, 8vw, 112px) clamp(28px, 5vw, 72px) 0;
+    padding-bottom: env(safe-area-inset-bottom);
   }
   .text {
     width: min(100%, 1180px);
@@ -144,10 +128,9 @@
 </style>
 </head>
 <body>
-  <div class="bg" aria-hidden="true"></div>
   <div class="view">
     <div class="text">
-      <p class="eyebrow">The Wreckers’ Coast in summer</p>
+      <p class="eyebrow"><time datetime="2026-09-25T12:33:38+02:00">Sep 25 2026, 12:33</time> · The Wreckers’ Coast in summer</p>
     <h1 class="title">The Boyhood Yearning for a Lost Horizon</h1>
     <p class="intro">Young grew up where the Atlantic batters the Cornish cliffs. In a landscape of half-lost churches and shipwrecks, a childhood fascination with the horizon became a mandate.</p>
     <blockquote>
@@ -158,32 +141,26 @@
     </div>
   </div>
   <script>
-    // Random background image. Any file in img/ whose zero-padded name falls
-    // inside the range is fair game. Probe several slots at once (gallery is
-    // sparse — serial 404s felt like a slow load). First hit wins.
-    // MIN/MAX is the only thing to bump when the gallery grows past 99.
-    // .jpg is tried first, then .png. Applied to .bg, never body.
+    var root = document.documentElement;
     var IMG_MIN = 1;
     var IMG_MAX = 99;
     var PROBE_BATCH = 8;
     var pad = function (n) { return ("00" + n).slice(-3); };
     var range = IMG_MAX - IMG_MIN + 1;
     var tried = {};
-    var bg = document.querySelector(".bg");
     var stamp = document.querySelector(".stamp");
-    var eyebrow = document.querySelector(".text .eyebrow");
     var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     var today = new Date();
-    if (stamp && eyebrow) {
-      stamp.textContent = weekdays[today.getDay()] + " " + months[today.getMonth()] + " " + today.getDate() + " " + today.getFullYear() + ", " + eyebrow.textContent.trim();
+    if (stamp) {
+      stamp.textContent = weekdays[today.getDay()] + " " + months[today.getMonth()] + " " + today.getDate() + " " + today.getFullYear();
     }
     var settled = false;
     function use(n, ext) {
       if (settled) return;
       settled = true;
       var image = "url('img/" + pad(n) + "." + ext + "')";
-      bg.style.backgroundImage = image;
+      root.style.setProperty("--photo", image);
     }
     function trySlot(n) {
       var probe = new Image();
