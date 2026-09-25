@@ -15,6 +15,9 @@
   }
   body {
     background: transparent;
+    /* Tall enough to trigger Safari's address bar collapse on scroll.
+       Once collapsed the full screen is painted edge to edge.        */
+    min-height: 200vh;
   }
   /* .bg covers the layout viewport (everything below the address bar).
      No filter, no extra color, nothing that creates a stacking context.  */
@@ -47,6 +50,6 @@
 </head>
 <body>
   <div class="bg"></div>
-  <div class="label">2026-09-25 10:52:15</div>
+  <div class="label">2026-09-25 10:59:55</div>
 </body>
 </html>
