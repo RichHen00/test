@@ -4,8 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0076b9">
-<title>i4</title>
+<title>The Boyhood Yearning for a Lost Horizon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 <style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
   html {
     color-scheme: light;
     background-color: #0076b9;
@@ -21,7 +26,12 @@
     position: relative;
     min-height: 100vh;
     min-height: 100lvvh;
-    margin: 0;
+    font-family: "DM Sans", Arial, sans-serif;
+    font-weight: 400;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     background-color: #0076b9;
     background-image: url("img/001.jpg");
     background-size: cover;
@@ -42,6 +52,7 @@
     background-position: center;
     background-repeat: no-repeat;
   }
+
   .view {
     position: fixed;
     top: 0;
@@ -52,60 +63,111 @@
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    overscroll-behavior-y: contain;
     scrollbar-width: none;
-    padding: 3rem 1.75rem max(3rem, env(safe-area-inset-bottom));
-    color: #fff;
-    font-family: "American Typewriter", "Courier New", Courier, monospace;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    padding: clamp(54px, 8vw, 112px) clamp(28px, 5vw, 72px) 0;
   }
   .view::-webkit-scrollbar {
     display: none;
   }
-  .view-inner {
-    max-width: 600px;
-    margin: 0 auto;
+
+  .text {
+    width: min(100%, 1180px);
+    margin: auto 0;
+    padding: clamp(42px, 6vw, 72px) clamp(28px, 5vw, 72px);
   }
-  .view h1 {
+  .text .eyebrow {
+    margin: 0 0 26px;
+    font-size: clamp(16px, 1.35vw, 16px);
+    line-height: 1.2;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+  .text .title {
+    max-width: 1050px;
     margin: 0;
-    font-size: 2.5rem;
+    font-size: clamp(40px, 7.2vw, 50px);
+    line-height: 0.98;
+    font-weight: 600;
+    letter-spacing: -0.055em;
+  }
+  @media (max-width: 640px) {
+    .text .title { line-height: 1.01; }
+  }
+  .text .intro {
+    max-width: 900px;
+    margin: clamp(34px, 0.2vw, 56px) 0 0;
+    font-size: clamp(17px, 1.8vw, 21px);
+    line-height: 1.42;
+    font-weight: 300;
+    letter-spacing: -0.025em;
+  }
+  .text blockquote {
+    max-width: 800px;
+    margin: clamp(20px, 8vw, 36px) 0 0;
+    padding: 0;
+    border: none;
+  }
+  .text blockquote p {
+    max-width: none;
+    margin: 0 0 10px;
+    margin-left: 8%;
+    font-size: clamp(16px, 1.45vw, 18px);
+    line-height: 1.62;
     font-weight: 400;
-    line-height: 1.15;
-    letter-spacing: 0.02em;
+    letter-spacing: -0.012em;
   }
-  .view .year {
-    font-size: 1.125rem;
-    margin-top: 0.5rem;
-    margin-bottom: 2.5rem;
-    color: #e8f4fb;
+  .text blockquote p:last-child { margin-bottom: 0; }
+  @media (min-width: 1100px) {
+    .text blockquote { margin-left: 4.5%; }
   }
-  .view p {
-    margin-top: 0;
-    font-size: 1.0625rem;
-    line-height: 1.7;
-    margin-bottom: 1.75rem;
+
+  .text .source {
+    margin-top: 20px;
+    font-size: clamp(16px, 1.35vw, 16px);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    opacity: 0.6;
   }
-  .view p:last-child {
-    margin-bottom: 0;
+  .text .source a {
+    color: inherit;
+    text-decoration: none;
   }
-  @media (min-width: 768px) {
-    .view h1 { font-size: 3.5rem; }
-    .view p { font-size: 1.1875rem; }
+  .text .source a:hover {
+    text-decoration: underline;
+  }
+  .view { padding-top: 10px; }
+  .text { padding-top: 0; }
+  @media (max-width: 640px) {
+    .view {
+      padding-top: 12px;
+      padding-left: clamp(28px, 5vw, 72px);
+      padding-right: clamp(28px, 5vw, 72px);
+    }
+    .text { padding-top: 16px; padding-bottom: 32px; }
+    .text .eyebrow { margin-bottom: 18px; }
+    .text .intro { margin-top: 30px; }
+    .text blockquote { margin-left: 0; margin-top: 36px; }
+    .text blockquote p { line-height: 1.55; margin-left: 8%; }
   }
 </style>
 </head>
 <body>
-  <div class="bg"></div>
-  <main class="view">
-    <div class="view-inner">
-      <h1>Hermes Featherweight</h1>
-      <p class="year">1946</p>
-      <p>The Featherweight is the work of Giuseppe Prezioso, who was born in 1897 in Taverna, a small village in the Abruzzi. The Featherweight is the work of Giuseppe Prezioso, who was born in 1897 in Taverna, a small village in the Abruzzi.</p>
-      <p>He studied mechanical engineering in Milan and worked at Marelli, a large electrical appliance factory. The Featherweight is the work of Giuseppe Prezioso, who was born in 1897 in Taverna, a small village in the Abruzzi.</p>
-      <p>The Featherweight is the work of Giuseppe Prezioso, who was born in 1897 in Taverna, a small village in the Abruzzi. The Featherweight is the work of Giuseppe Prezioso, who was born in 1897 in Taverna, a small village in the Dingo.</p>
-      
-      
+  <div class="bg" aria-hidden="true"></div>
+  <div class="view">
+    <div class="text">
+      <p class="eyebrow">Sep 25 2026 11:40 • The Wreckers' Coast in summer</p>
+      <h1 class="title">The Boyhood Yearning for a Lost Horizon</h1>
+      <p class="intro">Young grew up where the Atlantic batters the Cornish cliffs. In a landscape of half-lost churches and shipwrecks, a childhood fascination with the horizon became a mandate.</p>
+      <blockquote>
+        <p>It was a simple idea: take a series of ships of many sizes and kinds; go where they lead for a few months; see what happens. It was an adaptation of the old idea of Running Away to Sea, a boyhood yearning bred of tales, marvellous tales Of ships and stars and isles where good men rest.</p>
+        <p>No doubt my dream of the sea was born during the long summers I spent as a child in what I still think of as the oldest-feeling, most soul-subduing and cosily creepy part of England. This is the Wreckers' Coast: a place of buzzards and seals and effigies of knights in dim, half-lost churches, where seas pound into cliffbound bays that have swallowed seamen from a hundred wrecked schooners.</p>
+      </blockquote>
+      <p class="source">— Slow Boats to China</p>
+      <p class="source" style="margin-top: 25px;"><a href="tmp/archive.html" target="_blank">Archive</a></p>
     </div>
-  </main>
+  </div>
 </body>
 </html>
