@@ -7,76 +7,28 @@
 <title>i3</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    background: #000;
-  }
+  html, body { background: #000; }
   .bg {
     position: fixed;
     inset: 0;
-    background-color: #000;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: #000 url('img/001.jpg') center/cover no-repeat;
     filter: grayscale(100%);
   }
-  .title {
+  .label {
     position: fixed;
     inset: 0;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: monospace;
     font-size: 18px;
     color: #fff;
-    z-index: 1;
   }
 </style>
 </head>
 <body>
   <div class="bg"></div>
-  <div class="title">2026-09-25 10:29:24</div>
-  <script>
-    var IMG_MIN = 1;
-    var IMG_MAX = 99;
-    var PROBE_BATCH = 8;
-    var pad = function (n) { return ("00" + n).slice(-3); };
-    var range = IMG_MAX - IMG_MIN + 1;
-    var tried = {};
-    var bg = document.querySelector(".bg");
-    var settled = false;
-    function use(n, ext) {
-      if (settled) return;
-      settled = true;
-      bg.style.backgroundImage = "url('img/" + pad(n) + "." + ext + "')";
-    }
-    function trySlot(n) {
-      var probe = new Image();
-      probe.onload = function () { use(n, "jpg"); };
-      probe.onerror = function () {
-        var alt = new Image();
-        alt.onload = function () { use(n, "png"); };
-        alt.onerror = function () {
-          if (!settled && Object.keys(tried).length < range) pickBatch();
-        };
-        alt.src = "img/" + pad(n) + ".png";
-      };
-      probe.src = "img/" + pad(n) + ".jpg";
-    }
-    function pickBatch() {
-      if (settled) return;
-      var batch = PROBE_BATCH;
-      var started = 0;
-      while (started < batch) {
-        var n = IMG_MIN + Math.floor(Math.random() * range);
-        if (tried[n]) continue;
-        tried[n] = true;
-        started++;
-        trySlot(n);
-        if (Object.keys(tried).length >= range) break;
-      }
-      if (started === 0 && Object.keys(tried).length >= range) return;
-    }
-    pickBatch();
-  </script>
+  <div class="label">2026-09-25 10:35</div>
 </body>
 </html>
