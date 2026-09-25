@@ -9,24 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
-  html {
+  html, body {
+    /* Do NOT set overflow: hidden here — on iOS Safari that clips the layout
+       viewport to the area between browser chrome bars, causing black gaps.
+       Scrolling is handled exclusively by .view; html/body just need to fill
+       the screen without clipping anything. */
     height: 100%;
-    /* Oldest iOS Safari (pre-15): fill the screen including behind browser chrome */
-    height: -webkit-fill-available;
-    /* Modern browsers: dynamic viewport height tracks toolbar show/hide */
-    height: 100dvh;
     margin: 0;
-    overflow: hidden;
     background-color: #000;
   }
   body {
-    /* Mirror html's height cascade so body stretches identically */
-    height: 100%;
-    height: -webkit-fill-available;
-    height: 100dvh;
-    margin: 0;
-    overflow: hidden;
-    background-color: #000;
     font-family: "DM Sans", Arial, sans-serif;
     font-weight: 400;
     color: #fff;
@@ -35,25 +27,18 @@
     text-rendering: optimizeLegibility;
   }
   /* Background photo layer.
-     position: fixed + all four insets = 0 anchors to the layout viewport.
-     On iOS Safari the layout viewport does NOT include the area behind the
-     browser chrome, so the element stops short of the top/bottom screen
-     edges → black bars.
-
-     Fix: override the height with dvh units so the element always stretches
-     to the full screen height regardless of the browser chrome state.
-     The JS resize fallback (see <script>) handles browsers that don't yet
-     support dvh (pre-iOS 16 Safari). */
+     position: fixed with all four insets = 0, and NO explicit height or
+     overflow constraint anywhere in the ancestor chain. This is the only
+     reliable way to get a fixed element to bleed into the area behind the
+     browser chrome on iOS Safari. Any overflow: hidden on html/body or any
+     explicit height other than the insets will clip the element to the
+     layout viewport and produce black bars at the top and bottom. */
   .bg {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    /* Fallback for very old WebKit */
-    height: 100%;
-    /* Tracks the real screen height as toolbar animates in/out */
-    height: 100dvh;
     z-index: 0;
     background-color: #000;
     background-size: cover;
