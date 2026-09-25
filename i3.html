@@ -7,15 +7,21 @@
 <title>i3</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* iOS Safari uses the html element's background-color to paint the area
+     behind the address bar and toolbar chrome. Setting it black eliminates
+     any white/coloured bar showing through behind the browser UI.         */
+  html {
+    background: #000;
+  }
+  body {
+    background: #000;
+  }
   .bg {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    /* Pull the element up behind the iOS address bar using the safe area inset.
-       viewport-fit=cover in the meta tag is required for env() to work.       */
-    top: calc(0px - env(safe-area-inset-top, 0px));
     background-image: url('img/001.jpg');
     background-size: cover;
     background-position: center;
@@ -38,6 +44,6 @@
 </head>
 <body>
   <div class="bg"></div>
-  <div class="label">2026-09-25 10:43:59</div>
+  <div class="label">2026-09-25 10:47:15</div>
 </body>
 </html>
