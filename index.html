@@ -3,19 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
 <title>The Boyhood Yearning for a Lost Horizon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; }
-  html, body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
-    background-color: #000;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    background: #000 center/cover no-repeat fixed;
   }
   body {
+    background: transparent;
     font-family: "DM Sans", Arial, sans-serif;
     font-weight: 400;
     color: #fff;
@@ -23,60 +22,48 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
-  /* Photo never scrolls: fixed layer with only top/right/bottom/left: 0 —
-     WebKit stretches that to the visual viewport. Do NOT add min-height
-     (100vh/dvh/lvh): it fights bottom: 0 during toolbar animation and leaves
-     black bars. JS sets .bg background-image (not body). */
   .bg {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 0;
     background-color: #000;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     background-repeat: no-repeat;
-    filter: grayscale(100%);
-    pointer-events: none;
   }
   .bg::after {
     content: "";
     position: absolute;
-    inset: 0;
+    top: 0; right: 0; bottom: 0; left: 0;
     background: #000;
     opacity: 0.15;
   }
-  /* Only this box scrolls — html/body stay locked so mobile browsers cannot
-     rubber-band or zoom the fixed photo underneath the text. */
   .view {
-    position: relative;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     z-index: 1;
-    height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    overscroll-behavior-y: contain;
     display: flex;
-    align-items: safe center;
-    justify-content: center;
-    padding: clamp(54px, 8vw, 112px) clamp(28px, 5vw, 72px);
-  }
-  @supports not (align-items: safe center) {
-    .view { align-items: flex-start; }
+    flex-direction: column;
+    padding: clamp(54px, 8vw, 112px) clamp(28px, 5vw, 72px) 0;
   }
   .text {
     width: min(100%, 1180px);
-    margin: auto;
+    margin: auto 0;
     padding: clamp(42px, 6vw, 72px) clamp(28px, 5vw, 72px);
-    background: transparent;
-    border: none;
-    border-radius: 0;
   }
   .text .eyebrow {
-    margin: 0 0 6px;
-    font-size: clamp(17px, 1.35vw, 22px);
+    margin: 0 0 26px;
+    font-size: clamp(16px, 1.35vw, 16px);
     line-height: 1.2;
     font-weight: 500;
     letter-spacing: -0.015em;
@@ -108,7 +95,7 @@
   }
   .text blockquote p {
     max-width: none;
-    margin: 0 0 32px;
+    margin: 0 0 10px;
     margin-left: 8%;
     font-size: clamp(16px, 1.45vw, 18px);
     line-height: 1.62;
@@ -116,18 +103,39 @@
     letter-spacing: -0.012em;
   }
   .text blockquote p:last-child { margin-bottom: 0; }
+  .text .stamp {
+    margin: clamp(44px, 6vw, 72px) 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(12px, 1vw, 14px);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+  .text .source {
+    margin-top: 20px;
+    font-size: clamp(16px, 1.35vw, 16px);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    opacity: 0.6;
+  }
+  .text .source a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .text .source a:hover {
+    text-decoration: underline;
+  }
   @media (min-width: 1100px) {
     .text blockquote { margin-left: 4.5%; }
   }
+  .view { padding-top: 10px; }
+  .text { padding-top: 0; }
   @media (max-width: 640px) {
     .view {
-      padding-top: 42px;
-      padding-bottom: 64px;
+      padding-top: 12px;
       padding-left: clamp(28px, 5vw, 72px);
       padding-right: clamp(28px, 5vw, 72px);
-      align-items: flex-start;
     }
-    .text { padding-top: 42px; padding-bottom: 64px; }
+    .text { padding-top: 16px; padding-bottom: 32px; }
     .text .eyebrow { margin-bottom: 18px; }
     .text .intro { margin-top: 30px; }
     .text blockquote { margin-left: 0; margin-top: 36px; }
@@ -146,6 +154,7 @@
 <p>It was a simple idea: take a series of ships of many sizes and kinds; go where they lead for a few months; see what happens. It was an adaptation of the old idea of Running Away to Sea, a boyhood yearning bred of tales, marvellous tales Of ships and stars and isles where good men rest.</p>
 <p>No doubt my dream of the sea was born during the long summers I spent as a child in what I still think of as the oldest-feeling, most soul-subduing and cosily creepy part of England. This is the Wreckers’ Coast: a place of buzzards and seals and effigies of knights in dim, half-lost churches, where seas pound into cliffbound bays that have swallowed seamen from a hundred wrecked schooners.</p>
 </blockquote>
+      <footer class="stamp" aria-label="Page stamp"></footer>
     </div>
   </div>
   <script>
@@ -153,7 +162,7 @@
     // inside the range is fair game. Probe several slots at once (gallery is
     // sparse — serial 404s felt like a slow load). First hit wins.
     // MIN/MAX is the only thing to bump when the gallery grows past 99.
-    // .jpg is tried first, then .png. Applied to .bg, never body.
+    // .jpg is tried first, then .png. Applied to .bg and html, never body.
     var IMG_MIN = 1;
     var IMG_MAX = 99;
     var PROBE_BATCH = 8;
@@ -161,11 +170,22 @@
     var range = IMG_MAX - IMG_MIN + 1;
     var tried = {};
     var bg = document.querySelector(".bg");
+    var root = document.documentElement;
+    var stamp = document.querySelector(".stamp");
+    var eyebrow = document.querySelector(".text .eyebrow");
+    var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var today = new Date();
+    if (stamp && eyebrow) {
+      stamp.textContent = weekdays[today.getDay()] + " " + months[today.getMonth()] + " " + today.getDate() + " " + today.getFullYear() + ", " + eyebrow.textContent.trim();
+    }
     var settled = false;
     function use(n, ext) {
       if (settled) return;
       settled = true;
-      bg.style.backgroundImage = "url('img/" + pad(n) + "." + ext + "')";
+      var image = "url('img/" + pad(n) + "." + ext + "')";
+      bg.style.backgroundImage = image;
+      root.style.backgroundImage = image;
     }
     function trySlot(n) {
       var probe = new Image();
