@@ -11,7 +11,7 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html {
-    background: #000 center/cover no-repeat fixed;
+    background: #000 url('img/001.jpg') center/cover no-repeat fixed;
   }
   body {
     background: transparent;
@@ -162,7 +162,7 @@
     // inside the range is fair game. Probe several slots at once (gallery is
     // sparse — serial 404s felt like a slow load). First hit wins.
     // MIN/MAX is the only thing to bump when the gallery grows past 99.
-    // .jpg is tried first, then .png. Applied to .bg and html, never body.
+    // .jpg is tried first, then .png. Applied to .bg, never body.
     var IMG_MIN = 1;
     var IMG_MAX = 99;
     var PROBE_BATCH = 8;
@@ -170,7 +170,6 @@
     var range = IMG_MAX - IMG_MIN + 1;
     var tried = {};
     var bg = document.querySelector(".bg");
-    var root = document.documentElement;
     var stamp = document.querySelector(".stamp");
     var eyebrow = document.querySelector(".text .eyebrow");
     var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -185,7 +184,6 @@
       settled = true;
       var image = "url('img/" + pad(n) + "." + ext + "')";
       bg.style.backgroundImage = image;
-      root.style.backgroundImage = image;
     }
     function trySlot(n) {
       var probe = new Image();
