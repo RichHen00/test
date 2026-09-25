@@ -20,8 +20,6 @@
     background-attachment: fixed;
   }
   body {
-    min-height: 100vh;
-    min-height: 100svh;
     background: transparent;
     font-family: "DM Sans", Arial, sans-serif;
     font-weight: 400;
@@ -31,14 +29,21 @@
     text-rendering: optimizeLegibility;
   }
   .view {
-    position: relative;
-    min-height: 100vh;
-    min-height: 100svh;
-    overflow: visible;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
     display: flex;
     flex-direction: column;
     padding: clamp(54px, 8vw, 112px) clamp(28px, 5vw, 72px) 0;
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: max(32px, env(safe-area-inset-bottom));
+    background: transparent;
   }
   .text {
     width: min(100%, 1180px);
@@ -130,7 +135,7 @@
 <body>
   <div class="view">
     <div class="text">
-      <p class="eyebrow"><time datetime="2026-09-25T12:33:38+02:00">Sep 25 2026, 12:33</time> · The Wreckers’ Coast in summer</p>
+      <p class="eyebrow"><time datetime="2026-09-25T12:37:10+02:00">Sep 25 2026, 12:37</time> · The Wreckers’ Coast in summer</p>
     <h1 class="title">The Boyhood Yearning for a Lost Horizon</h1>
     <p class="intro">Young grew up where the Atlantic batters the Cornish cliffs. In a landscape of half-lost churches and shipwrecks, a childhood fascination with the horizon became a mandate.</p>
     <blockquote>
