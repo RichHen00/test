@@ -7,24 +7,17 @@
 <title>i3</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  /* iOS Safari uses the html element's background-color to paint the area
-     behind the address bar and toolbar chrome. Setting it black eliminates
-     any white/coloured bar showing through behind the browser UI.         */
+  /* Setting the background on html itself is the only reliable way to get
+     the image to paint behind the iOS Safari address bar. The browser uses
+     the html element's background to fill the area behind its own chrome. */
   html {
-    background: #000;
+    height: 100%;
+    background: #000 url('img/001.jpg') center/cover no-repeat fixed;
   }
   body {
-    background: #000;
-  }
-  .bg {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: url('img/001.jpg');
-    background-size: cover;
-    background-position: center;
+    /* Body must be transparent so html's background shows through */
+    background: transparent;
+    min-height: 100%;
   }
   .label {
     position: fixed;
@@ -43,7 +36,6 @@
 </style>
 </head>
 <body>
-  <div class="bg"></div>
-  <div class="label">2026-09-25 10:47:15</div>
+  <div class="label">2026-09-25 10:49:14</div>
 </body>
 </html>
