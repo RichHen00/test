@@ -3,20 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- theme-color fills the status-bar / address-bar chrome with black so
+     there is no jarring colour mismatch while the image loads             -->
+<meta name="theme-color" content="#000000">
 <title>The Boyhood Yearning for a Lost Horizon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
+
+  /* KEY FIX:
+     html and body must NOT have overflow:hidden and must NOT have a fixed
+     height. When the document is locked (overflow:hidden / no scroll),
+     iOS Safari deliberately refuses to paint the region behind its own
+     chrome (address bar + toolbar), leaving solid black bars there.
+     The only reliable cure is to let the document remain in its default
+     scrollable state. We don't actually need html/body to scroll — .view
+     handles all scrolling internally — but the document must *appear*
+     scrollable to Safari so it paints edge-to-edge.              */
   html, body {
-    /* Do NOT set overflow: hidden here — on iOS Safari that clips the layout
-       viewport to the area between browser chrome bars, causing black gaps.
-       Scrolling is handled exclusively by .view; html/body just need to fill
-       the screen without clipping anything. */
-    height: 100%;
     margin: 0;
-    background-color: #000;
+    padding: 0;
+    background-color: #000; /* matches theme-color; shows during load */
   }
   body {
     font-family: "DM Sans", Arial, sans-serif;
@@ -26,19 +35,13 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
-  /* Background photo layer.
-     position: fixed with all four insets = 0, and NO explicit height or
-     overflow constraint anywhere in the ancestor chain. This is the only
-     reliable way to get a fixed element to bleed into the area behind the
-     browser chrome on iOS Safari. Any overflow: hidden on html/body or any
-     explicit height other than the insets will clip the element to the
-     layout viewport and produce black bars at the top and bottom. */
+
+  /* Background photo: fixed, all four edges = 0.
+     Because html/body are no longer overflow:hidden, Safari will paint
+     this element all the way into the area behind the browser chrome.   */
   .bg {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     z-index: 0;
     background-color: #000;
     background-size: cover;
@@ -54,17 +57,17 @@
     background: #000;
     opacity: 0.15;
   }
-  /* Only this box scrolls — html/body stay locked so mobile browsers cannot
-     rubber-band or zoom the fixed photo underneath the text. */
+
+  /* Text container: also fixed + inset:0 so it lines up exactly with .bg.
+     Scrolling lives here, not on html/body.                              */
   .view {
-    position: relative;
+    position: fixed;
+    inset: 0;
     z-index: 1;
-    height: 100%;
-    height: 100dvh;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    overscroll-behavior-y: contain;
     display: flex;
     align-items: safe center;
     justify-content: center;
@@ -73,6 +76,7 @@
   @supports not (align-items: safe center) {
     .view { align-items: flex-start; }
   }
+
   .text {
     width: min(100%, 1180px);
     margin: auto;
@@ -147,53 +151,16 @@
   <div class="view">
     <div class="text">
       <p class="eyebrow">The Wreckers' Coast in summer</p>
-    <h1 class="title">The Boyhood Yearning for a Lost Horizon</h1>
-    <p class="intro">Young grew up where the Atlantic batters the Cornish cliffs. In a landscape of half-lost churches and shipwrecks, a childhood fascination with the horizon became a mandate.</p>
-    <blockquote>
-<p>It was a simple idea: take a series of ships of many sizes and kinds; go where they lead for a few months; see what happens. It was an adaptation of the old idea of Running Away to Sea, a boyhood yearning bred of tales, marvellous tales Of ships and stars and isles where good men rest.</p>
-<p>No doubt my dream of the sea was born during the long summers I spent as a child in what I still think of as the oldest-feeling, most soul-subduing and cosily creepy part of England. This is the Wreckers' Coast: a place of buzzards and seals and effigies of knights in dim, half-lost churches, where seas pound into cliffbound bays that have swallowed seamen from a hundred wrecked schooners.</p>
-</blockquote>
+      <h1 class="title">TEST 1029</h1>
+      <p class="intro">Young grew up where the Atlantic batters the Cornish cliffs. In a landscape of half-lost churches and shipwrecks, a childhood fascination with the horizon became a mandate.</p>
+      <blockquote>
+        <p>It was a simple idea: take a series of ships of many sizes and kinds; go where they lead for a few months; see what happens. It was an adaptation of the old idea of Running Away to Sea, a boyhood yearning bred of tales, marvellous tales Of ships and stars and isles where good men rest.</p>
+        <p>No doubt my dream of the sea was born during the long summers I spent as a child in what I still think of as the oldest-feeling, most soul-subduing and cosily creepy part of England. This is the Wreckers' Coast: a place of buzzards and seals and effigies of knights in dim, half-lost churches, where seas pound into cliffbound bays that have swallowed seamen from a hundred wrecked schooners.</p>
+      </blockquote>
     </div>
   </div>
   <script>
-    // ------------------------------------------------------------------
-    // dvh fallback for browsers that don't support CSS dvh units
-    // (pre-iOS 16 Safari). Sets a --dvh custom property and applies it
-    // to .bg and .view via inline style so the real screen height is used
-    // even when dvh isn't available.
-    // ------------------------------------------------------------------
-    (function () {
-      var bg   = document.querySelector(".bg");
-      var view = document.querySelector(".view");
-
-      // Check if dvh is supported. If not, use window.innerHeight instead.
-      var supportsDvh = (function () {
-        try {
-          var el = document.createElement("div");
-          el.style.height = "1dvh";
-          return el.style.height !== "";
-        } catch (e) { return false; }
-      })();
-
-      function applyHeight() {
-        if (supportsDvh) return; // CSS handles it
-        var h = window.innerHeight + "px";
-        bg.style.height   = h;
-        view.style.height = h;
-      }
-
-      applyHeight();
-      window.addEventListener("resize", applyHeight);
-      // Also fire on orientationchange which fires before resize on iOS
-      window.addEventListener("orientationchange", function () {
-        // Small delay: innerHeight hasn't updated yet at the moment the event fires
-        setTimeout(applyHeight, 100);
-      });
-    })();
-
-    // ------------------------------------------------------------------
     // Random background image — unchanged from index.html
-    // ------------------------------------------------------------------
     var IMG_MIN = 1;
     var IMG_MAX = 99;
     var PROBE_BATCH = 8;
