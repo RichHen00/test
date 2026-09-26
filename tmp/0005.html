@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<base href="../">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0f0f0f">
-<title>The Death of the Lone Traveller</title>
+<title>The Indifference of the Ship</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
@@ -115,6 +116,13 @@
     letter-spacing: -0.012em;
   }
   .text blockquote p:last-child { margin-bottom: 0; }
+  .text .stamp {
+    margin: clamp(44px, 6vw, 72px) 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(12px, 1vw, 14px);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
   .text .source {
     margin-top: 20px;
     font-size: clamp(16px, 1.35vw, 16px);
@@ -261,15 +269,16 @@
   <div class="bg" aria-hidden="true"></div>
   <div class="view">
     <div class="text">
-      <p class="eyebrow">Sep 26 2026 15:45 • Post-war ruins and puce knitted ties</p>
-    <h1 class="title">The Death of the Lone Traveller</h1>
-    <p class="intro">The world is shrinking, and the old ways of drifting across oceans are vanishing. In a sterile office, a man seeks a route that no longer exists.</p>
+      <p class="eyebrow">Freezing metal decks in January</p>
+    <h1 class="title">The Indifference of the Ship</h1>
+    <p class="intro">Two boys sign on as deckie-learners, trading the safety of shore for the violent plunge of the Channel and the scarred, silent squares of post-war Antwerp.</p>
     <blockquote>
-<p>For years I dreamed of taking a much longer sea journey, but travel and war reporting intervened. Passenger travel, as I was to discover, is moribund. Nevertheless, I set about finding out what would happen to someone who tried to port-hop to some far destination on the other side of the world. How could sea travel be dead?</p>
-<p>‘It’s impossible. Even for a single gent, it’s utterly impossible.’ The middle-aged travel agent ran a finger delicately across his left eyebrow and organized a mouth that might, twenty years before, have been described as ‘rosebud’, into an apologetic smile. ‘So my answer, I’m ever so sorry to tell you, is rather simple: “No can do.”’</p>
+<p>I remember thinking that the Northgate seemed disconcertingly indifferent to our arrival. I didn’t know then that a ship only wakes up and pays attention to those on board when she’s at sea.</p>
+<p>The Northgate was unduly long for her width and plunged about abominably – so abominably, in fact, that the captain and all his officers were seasick. A radio battery in the messroom broke loose, and its acid burned awkward holes in my corduroy trousers.</p>
+<p>At Antwerp, although the city was still in ruins from the air raids in the war which had not long ended, we were allowed ashore escorted by Andie, a diminutive deckhand of about my age.</p>
 </blockquote>
-    <p class="source">&mdash; Slow Boats to China</p>
-      <button type="button" class="archive-btn" id="archive-open" aria-haspopup="dialog">Archive</button>
+      <footer class="stamp" aria-label="Page stamp"></footer>
+      <a class="archive-btn" id="archive-home" href="index.html" style="text-decoration: none">Home</a>
     </div>
   </div>
   <script type="application/json" id="archive-data">{
@@ -308,13 +317,6 @@
       "eyebrow": "January, between dog and wolf",
       "label": "The Cold Weight of a Dream",
       "built": "2026-09-26T15:33:19+02:00"
-    },
-    {
-      "n": 5,
-      "file": "tmp/0005.html",
-      "eyebrow": "Freezing metal decks in January",
-      "label": "The Indifference of the Ship",
-      "built": "2026-09-26T15:39:24+02:00"
     }
   ]
 }</script>
@@ -343,6 +345,14 @@
     var range = IMG_MAX - IMG_MIN + 1;
     var tried = {};
     var bg = document.querySelector(".bg");
+    var stamp = document.querySelector(".stamp");
+    var eyebrow = document.querySelector(".text .eyebrow");
+    var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var today = new Date();
+    if (stamp && eyebrow) {
+      stamp.textContent = weekdays[today.getDay()] + " " + months[today.getMonth()] + " " + today.getDate() + " " + today.getFullYear() + ", " + eyebrow.textContent.trim();
+    }
     var settled = false;
     function use(n, ext) {
       if (settled) return;
