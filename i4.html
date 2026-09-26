@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0076b9">
+<meta name="theme-color" content="#0f0f0f">
 <title>The Boyhood Yearning for a Lost Horizon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,7 @@
 
   html {
     color-scheme: light;
-    background-color: #0076b9;
+    background-color: #0f0f0f;
     overflow: hidden;
     scrollbar-width: none;
   }
@@ -32,12 +32,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    background-color: #0076b9;
-    background-image: url("img/001.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-color: #0f0f0f;
   }
   .bg {
     position: absolute;
@@ -46,11 +41,12 @@
     width: 100vw;
     min-height: 100vh;
     min-height: 100lvvh;
-    background-color: #0076b9;
+    background-color: #0f0f0f;
     background-image: url("img/001.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    filter: grayscale(100%);
   }
 
   .view {
@@ -169,5 +165,25 @@
       <p class="source" style="margin-top: 25px;"><a href="tmp/archive.html" target="_blank">Archive</a></p>
     </div>
   </div>
+  <script>
+    var IMG_MIN = 1;
+    var IMG_MAX = 3;
+    var pad = function (n) { return ("00" + n).slice(-3); };
+    var bg = document.querySelector(".bg");
+    var order = [];
+    for (var n = IMG_MIN; n <= IMG_MAX; n++) order.push(n);
+    order.sort(function () { return Math.random() - 0.5; });
+    var settled = false;
+    (function tryNext(i) {
+      if (settled || i >= order.length) return;
+      var probe = new Image();
+      probe.onload = function () {
+        settled = true;
+        bg.style.backgroundImage = "url('" + probe.src + "')";
+      };
+      probe.onerror = function () { tryNext(i + 1); };
+      probe.src = "img/" + pad(order[i]) + ".jpg";
+    })(0);
+  </script>
 </body>
 </html>
