@@ -1,39 +1,18 @@
 {
   "current": {
-    "label": "The Geography of a Childhood Obsession",
-    "kicker": "Damp floorboards and old suitcases",
+    "label": "The Boyhood Yearning for a Wreckers' Coast",
+    "kicker": "Cornwall, between the kneecap and the shin",
     "paragraphs": [
-      6,
-      8
+      1,
+      3
     ],
-    "note_words": 28,
-    "excerpt_words": 115,
-    "passage_chars": 1731,
-    "built": "2026-09-26T15:47:32+02:00",
+    "note_words": 27,
+    "excerpt_words": 126,
+    "passage_chars": 1341,
+    "built": "2026-09-26T14:06:40+00:00",
     "file": "index.html"
   },
-  "history": [
-    {
-      "n": 0,
-      "file": "tmp/0000.html",
-      "label": "The Boyhood Yearning for a Controlled Disaster",
-      "eyebrow": "The Wreckers’ Coast in summer",
-      "note_words": 28,
-      "excerpt_words": 98,
-      "words": 28,
-      "built": "2026-09-26T15:46:14+02:00"
-    },
-    {
-      "n": 1,
-      "file": "tmp/0001.html",
-      "label": "The Persistence of a Doomed Aura",
-      "eyebrow": "Damp floorboards and mouse droppings",
-      "note_words": 29,
-      "excerpt_words": 76,
-      "words": 29,
-      "built": "2026-09-26T15:46:26+02:00"
-    }
-  ],
+  "history": [],
   "source": {
     "title": "Slow Boats to China",
     "author": "GAVIN YOUNG",
@@ -42,18 +21,11 @@
   "used_paragraphs": [
     0,
     1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7
+    2
   ],
   "output_hashes": [
-    "afbe6a8070251bfa5746d6f8e14e6e57b6cbc2d6",
-    "e43b6bad5e8a109393dbe95769affe41bfc662f6",
-    "4b8e30a3861c54b07891538c80b6892a6ebbd179"
+    "d9e7b4ec05819aec55b9ff68e7cea31c7ee17da7"
   ],
-  "cursor": 8,
+  "cursor": 3,
   "cycle": 0
 }
