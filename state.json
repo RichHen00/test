@@ -1,15 +1,15 @@
 {
   "current": {
-    "label": "The Persistence of a Doomed Aura",
-    "kicker": "Damp floorboards and mouse droppings",
+    "label": "The Geography of a Childhood Obsession",
+    "kicker": "Damp floorboards and old suitcases",
     "paragraphs": [
-      4,
-      5
+      6,
+      8
     ],
-    "note_words": 29,
-    "excerpt_words": 76,
-    "passage_chars": 1242,
-    "built": "2026-09-26T15:46:26+02:00",
+    "note_words": 28,
+    "excerpt_words": 115,
+    "passage_chars": 1731,
+    "built": "2026-09-26T15:47:32+02:00",
     "file": "index.html"
   },
   "history": [
@@ -22,6 +22,16 @@
       "excerpt_words": 98,
       "words": 28,
       "built": "2026-09-26T15:46:14+02:00"
+    },
+    {
+      "n": 1,
+      "file": "tmp/0001.html",
+      "label": "The Persistence of a Doomed Aura",
+      "eyebrow": "Damp floorboards and mouse droppings",
+      "note_words": 29,
+      "excerpt_words": 76,
+      "words": 29,
+      "built": "2026-09-26T15:46:26+02:00"
     }
   ],
   "source": {
@@ -34,12 +44,16 @@
     1,
     2,
     3,
-    4
+    4,
+    5,
+    6,
+    7
   ],
   "output_hashes": [
     "afbe6a8070251bfa5746d6f8e14e6e57b6cbc2d6",
-    "e43b6bad5e8a109393dbe95769affe41bfc662f6"
+    "e43b6bad5e8a109393dbe95769affe41bfc662f6",
+    "4b8e30a3861c54b07891538c80b6892a6ebbd179"
   ],
-  "cursor": 5,
+  "cursor": 8,
   "cycle": 0
 }
