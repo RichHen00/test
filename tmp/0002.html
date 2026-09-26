@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<base href="../">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0f0f0f">
-<title>The Gravity of a Local Horizon</title>
+<title>The Geography of a Childhood Obsession</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
@@ -236,13 +237,11 @@
     color: rgba(255, 255, 255, 0.5);
     font-variant-numeric: tabular-nums;
   }
-  .archive-empty,
-  .archive-error {
+  .archive-empty {
     margin: 22px 0 0;
     color: rgba(255, 255, 255, 0.5);
     font-size: clamp(14px, 1.3vw, 16px);
   }
-  .archive-error { color: rgba(255, 255, 255, 0.72); }
   @media (min-width: 1100px) {
     .text blockquote { margin-left: 4.5%; }
   }
@@ -266,41 +265,17 @@
   <div class="bg" aria-hidden="true"></div>
   <div class="view">
     <div class="text">
-      <p class="eyebrow">Winter gales and ancient headlands</p>
-    <h1 class="title">The Gravity of a Local Horizon</h1>
-    <p class="intro">In the shadow of the cliffs, a boy finds a world of opium-eating vicars and ancestral graves, where the wind bends trees and the dead stay put.</p>
+      <p class="eyebrow">Damp floorboards and old suitcases</p>
+    <h1 class="title">The Geography of a Childhood Obsession</h1>
+    <p class="intro">A boy grows up in a gaunt Edwardian house, reading of wreckers and smugglers while the Atlantic pounds the cliffs of Bude. For him, the horizon promises everything.</p>
     <blockquote>
-<p>Bude is ennobled by its cliffs, its thundering surf and its eerie hinterland. You can ramble for hours across headlands that run back forming broad, high land on which scattered farms seem settled hull down in wriggling lanes to escape winter gales that have forced the trees to grow almost parallel to the earth. On the gravestones the same names appear over and over, century after century: Mutton, Sleeman, Oke and Prust. Parson Hawker ate opium and wrote outrageous poetry when he wasn’t burying drowned sailors between 1834 and 1878.</p>
+<p>I spent hours up there delving into Robert Louis Stevenson, Jack London, Captain Marryat, R. M. Ballantyne and a Cornish writer of the 1920s called Crosbie Garstin who wrote exciting books about wreckers and smugglers on this very coast. Obsessed with the doings of Long John Silver or the Swiss Family Robinson, I was almost convinced that one clear day I would see on the horizon the Indies … tall ships … Hispaniola … Cathay.</p>
+<p>The coastline here is a chain of tall headlands with names like Cow and Calf, Sharpnose Point, Wrangle Point, Longbeak, Dizzard. Their angry shapes and the prevailing westerly winds have done for dozens of ships.</p>
 </blockquote>
       <footer class="stamp" aria-label="Page stamp"></footer>
       <button type="button" class="archive-btn" id="archive-open" aria-haspopup="dialog">Archive</button>
     </div>
   </div>
-  <script type="application/json" id="archive-data">{
-  "entries": [
-    {
-      "n": 0,
-      "file": "tmp/0000.html",
-      "eyebrow": "Cornish cliffs and the Wreckers’ Coast",
-      "label": "The Boyhood Yearning for a Lost Horizon",
-      "built": "2026-09-26T15:18:45+02:00"
-    },
-    {
-      "n": 1,
-      "file": "tmp/0001.html",
-      "eyebrow": "Summer sun on the Wreckers’ Coast",
-      "label": "The Persistence of a Doomed Aura",
-      "built": "2026-09-26T15:20:25+02:00"
-    },
-    {
-      "n": 2,
-      "file": "tmp/0002.html",
-      "eyebrow": "Damp floorboards and old suitcases",
-      "label": "The Geography of a Childhood Obsession",
-      "built": "2026-09-26T15:20:39+02:00"
-    }
-  ]
-}</script>
   <div class="archive" id="archive" role="dialog" aria-modal="true" aria-label="Archive" aria-hidden="true">
     <div class="archive-inner">
       <div class="archive-head">
@@ -309,7 +284,6 @@
       </div>
       <ul class="archive-list" id="archive-list"></ul>
       <p class="archive-empty" id="archive-empty" hidden>Nothing archived yet.</p>
-      <p class="archive-error" id="archive-error" hidden>Could not read the archive list.</p>
     </div>
   </div>
   <script>
@@ -370,25 +344,18 @@
     pickBatch();
   </script>
   <script>
-    // Archive overlay. Two sources, in this order:
-    //   1. #archive-data — the manifest build.py embedded when it rendered this
-    //      page, so the list is already correct on load.
-    //   2. tmp/index.json — refetched on every open to pick up anything
-    //      archived since, and the only source on an archived page.
-    // Source 1 exists because fetch() is unavailable in some places a page gets
-    // opened (straight off disk), and that used to be indistinguishable from an
-    // empty archive. A failed refetch is only reported when it leaves us with
-    // no rows at all.
+    // Archive overlay. Rows come from tmp/index.json — the manifest build.py
+    // writes each time it demotes the live page into tmp/0000.html, 0001.html, …
+    // A published page cannot list a directory, and the manifest already
+    // carries the eyebrow of every demoted page, so one fetch is enough.
     (function () {
       var overlay = document.getElementById("archive");
       var openBtn = document.getElementById("archive-open");
       var closeBtn = document.getElementById("archive-close");
       var list = document.getElementById("archive-list");
       var empty = document.getElementById("archive-empty");
-      var error = document.getElementById("archive-error");
       var view = document.querySelector(".view");
       var opener = null;
-      var shown = 0;
       if (!overlay || !openBtn || !closeBtn || !list) return;
 
       function numberOf(entry) {
@@ -397,21 +364,9 @@
         return m ? Number(m[1]) : 0;
       }
 
-      function normalise(data) {
-        var raw = Array.isArray(data) ? data : (data && data.entries) || [];
-        return raw
-          .filter(function (e) { return e && e.file; })
-          .map(function (e) {
-            return { n: numberOf(e), file: e.file, eyebrow: e.eyebrow || "", label: e.label || "" };
-          })
-          .sort(function (a, b) { return a.n - b.n; });
-      }
-
       function render(entries) {
-        shown = entries.length;
         list.textContent = "";
-        if (empty) empty.hidden = shown > 0;
-        if (error) error.hidden = true;
+        if (empty) empty.hidden = entries.length > 0;
         entries.forEach(function (entry) {
           var row = document.createElement("li");
           var link = document.createElement("a");
@@ -429,29 +384,19 @@
         });
       }
 
-      function embedded() {
-        var el = document.getElementById("archive-data");
-        if (!el) return null;
-        try {
-          return normalise(JSON.parse(el.textContent));
-        } catch (e) {
-          return null;
-        }
-      }
-
       function load() {
-        var inline = embedded();
-        if (inline) render(inline);
         fetch("tmp/index.json", { cache: "no-store" })
-          .then(function (res) {
-            if (!res.ok) throw new Error("HTTP " + res.status);
-            return res.json();
+          .then(function (res) { return res.ok ? res.json() : null; })
+          .then(function (data) {
+            var raw = Array.isArray(data) ? data : (data && data.entries) || [];
+            render(raw
+              .filter(function (e) { return e && e.file; })
+              .map(function (e) {
+                return { n: numberOf(e), file: e.file, eyebrow: e.eyebrow || "", label: e.label || "" };
+              })
+              .sort(function (a, b) { return a.n - b.n; }));
           })
-          .then(function (data) { render(normalise(data)); })
-          .catch(function () {
-            if (!shown && error) error.hidden = false;
-            if (!inline && empty) empty.hidden = true;
-          });
+          .catch(function () { render([]); });
       }
 
       function open() {
